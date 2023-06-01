@@ -1,0 +1,121 @@
+# ec2 = elastic compute cloud 
+
+# instance = virtual machine
+
+# AMI = (Amazon Machine Image) os or image
+## An AMI is a template that contains the software configuration, 
+##(operating system, application server, and applications) required to launch your instance
+## quick start = frequently used ami
+## my ami = our own image 
+## market place = other os
+### marketplace ami cost will not appears in cost explorer
+### can be seen in the image it self with ebs price also
+## community ami 
+### Community AMIs contain all AMIs that are public, therefore anyone can publish an AMI 
+### there is paid community ami was also there
+### we cant to very the publisher in community ami and we wantto use
+
+##################################################################################################
+
+                                   instance type 
+#################################################################################################
+##These instance types vary in terms of computing power, memory, storage, network capacity, 
+## example t2micro t = instance type  , 2 = genaration , micro = size 
+## alphabets and its meanings
+
+@t:These instances are burstable instances, designed for low-to-medium traffic websites,
+              small applications, and development/testing environments.
+@m:These instances are general-purpose instances that provide a balance of compute, memory
+               and network resources, and are ideal for a wide range of workloads.
+
+@c:These instances are optimized for compute-intensive workloads, and 
+              provide high-performance CPUs.
+
+@r:These instances are optimized for memory-intensive workloads, and 
+              provide high memory capacity.
+
+@p: These instances are optimized for high-performance computing and
+              machine learning workloads, and provide high-performance GPUs.
+
+@i: These instances are optimized for storage-intensive workloads, 
+             and provide high-speed, low-latency local storage.
+
+@d: These instances are optimized for applications that require a balance of compute
+             and disk performance.
+
+@g: These instances are optimized for graphics-intensive workloads,
+             such as gaming, graphics design, or video encoding.
+
+@z: These instances are designed for high-performance computing and 
+             real-time processing workloads, and provide high memory and CPU performance
+
+### there can be combination of family too ex.m6a.24xlarge
+
+#######################################################################################
+                       Key pair (login)
+########################################################################################
+### You can use a key pair to securely connect to your instance.
+        Ensure that you have access to the selected key pair before you launch the instance.
+        we cant access instance without keypair out of aws
+        if key pair lost and we want to access instance outsite of ec2 like putty 
+        create ami of instance then launceh instance while launching
+        we can create key pair and launch it so same config instance with keypair  
+## two types
+### ppk : putty private key 
+### pem : Privacy Enhanced Mail
+
+#########################################################################################
+                        security group
+########################################################################################
+## it is the firewall of ec2
+## we can only allow the traffic and cant deny
+## allow by ssh,http,https or other ports
+## we can set inbound to custom, all = anyone can access, my ip = only my ip can access
+## we can set vpc,subnet,auto assingn ip by edit the security group
+## define inbound (incomming traffic) and outbound (out going traffic)
+@ if there is no inbound we cant access the instance if you cant accessthe instance check inbound
+@ if there is no outbound instance cant install anything but also sever works fine
+
+~ ec2-> security -> seurity group -> edit inbound / outbound
+#############################################################################################
+                          storage(volumes)
+###########################################################################################
+# ebs volume
+## root volume = default ex. c drive
+## volume can attached while ec2 running 
+## we can encript the volume while launching
+## root volume detete by default while ec2 terminated
+
+############################################################################################
+                              aws ip
+#############################################################################################
+# private - static -internal use
+# pubilc - change for every restart -> pubilc access
+@ problem with public ip change every time so we want to change ip of server
+@ solution elastic ip
+# elastic ip
+@ dont change after restart
+@ 5 elastic ip per account is free but should in use
+@ if not in use means 2 dollar / month
+
+~ ec2 -> elastic ip -> allocate new adress ->allocate-> 
+select the ip -> allocate -> resourse type (instance/network interface) -> select instance -> associate
+
+~ aws console -> services/search -> ec2 -> instances ->launch instance -> name (demoec2) ->
+-> ami (Amazon Linux 2023 AMI) -> Instance type -> Key pair (keypair1) -> security group ->
+storage (8gb) -> launch instance
+
+
+#for additional protection 
+advanced settings -> termination protection -> on
+
+#purchasing options
+@ on demand(default) -> pay as you go -> for testing/learning
+
+reserved instance -> 3 years/1 year -> for pre planed works
+@ we can choose the os type
+@ we can the tenancy default for normal use and dedicated for as company guideance which only the company can access but high cost than default
+@ offering class has standard (can modify like az in region,instance size etc) and convertable ( can change instance family, type etc)
+@ payment option is no upfront > partical upfront > full upfront in terms of costS
+~ ec2 -> purchanse reserved instance >platform(linux) -> tenanct (default/ dedicated) -> Offering class (any/convertable /standard)
+-> instance type -> term (1 year or 3 year) -> payment option (no upfront / partical upfront / full upfront)
