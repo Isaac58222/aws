@@ -1,0 +1,18 @@
+########################################################
+
+author : isaac d
+
+
+########################################################
+Virtual Private Cloud
+@ our private area in the cloud
+
+pre requiresite
+IP adress
+@ Internet protocol(IP) unigue name given to the machine
+@ one ip can not be given to two machine 
+eg. one aadar card number can not given for indians
+@ RULE: 
+      1. should be number.number.number.number
+         eg. 10.12.143.20
+      2. each number should 0 to 255
