@@ -16,3 +16,41 @@ eg. one aadar card number can not given for indians
       1. should be number.number.number.number
          eg. 10.12.143.20
       2. each number should 0 to 255
+      3.as considering the privzte ip we now want to assign ip from 10.0.0.0 to 10.0.0.255 to make computer understand this by CIDR
+      @ private ip !) not expose to pubilc internet 2) used with in the organizarion
+ CIDR
+    1. classless inter domain routing
+    2. we can assign ip from 10.0.0.0 to 10.0.0.255 to make computer understand by 10.0.0.0/24, which has 256 ip but how?
+    3.CIDR stats from /32 eg . 10.0.0.0/32 lets check how
+    ip              from       upto     total ip
+    10.0.0.0/32 -> 10.0.0.0 - 10.0.0.0  total = 1
+    10.0.0.0/31 -> 10.0.0.0 - 10.0.0.1  total = 2
+    10.0.0.0/30 -> 10.0.0.0 - 10.0.0.3  total = 4
+    10.0.0.0/29 -> 10.0.0.0 - 10.0.0.7  total = 8
+    10.0.0.0/28 -> 10.0.0.0 - 10.0.0.15  total = 16
+    10.0.0.0/27 -> 10.0.0.0 - 10.0.0.31  total =32 
+    10.0.0.0/26 -> 10.0.0.0-  10.0.0.63  total = 64
+    10.0.0.0/25 -> 10.0.0.0 - 10.0.0.127  total = 128
+    10.0.0.0/24 -> 10.0.0.0 - 10.0.0.255  total = 256  
+    hence we can see 10.0.0.0/24  has the range 10.0.0.255 with total of 256 ip
+    
+    now what happen for /23
+    10.0.0.0/24 -> 10.0.0.0 - 10.0.0.255  total = 256  after
+    10.0.0.0/23 -> 10.0.0.0 - 10.0.0.511  total = 512 may looks like correct but ip should not more than 255 
+    so the correct answer is
+    10.0.0.0/23 -> 10.0.0.0 - 10.0.1.255  total = 512 ,but how
+     consider you are going to a grand show
+     there in  row 0, 256 people can sit from numer 0 to 255
+     what where will people will sit after that, from row 1 ,0 to 255 
+     consider the same now afer 10.0.0.255 IP  can seated from 10.0.1.0 to 10.0.0.255
+     also we can imagaine that row 1 also filled as we have 512 people hence
+     10.0.0.0/23 -> 10.0.0.0 - 10.0.1.255 is correct
+    alggorithm to find number of ip with cidr
+    for /24 eg.192.10.0.0/24 => 32 - 24 = 8 => 8 power 2 = 2*2*2*2*2*2*2*2 = 256
+    
+    
+    
+    10.0.0.0/31 -> 10.0.0.0 10.0.0.1  total = 2
+    10.0.0.0/31 -> 10.0.0.0 10.0.0.1  total = 2
+    
+    
