@@ -45,12 +45,44 @@ eg. one aadar card number can not given for indians
      consider the same now afer 10.0.0.255 IP  can seated from 10.0.1.0 to 10.0.0.255
      also we can imagaine that row 1 also filled as we have 512 people hence
      10.0.0.0/23 -> 10.0.0.0 - 10.0.1.255 is correct
-    alggorithm to find number of ip with cidr
+    
+    algorithm to find number of ip with cidr
     for /24 eg.192.10.0.0/24 => 32 - 24 = 8 => 8 power 2 = 2*2*2*2*2*2*2*2 = 256
+   
+   pubilc ip = world wide 1 as a unique numer
+    eg. gmail one gmail as the selected name no one cant get the same email
+   private ip = can we same but in differnt organization eg google private 173 10.5.9.0 aws private ip 173.5.9.0
+   eg. username of instagram and username of twitter came be same
+   
+   subnet mask
+   ip adress consist of two parts 
+     1. network adress
+       adress given to a network eg .192.168.1.0
+     2. host adress
+        adress given within that network eg. computer (192.168.1.1),mobile (192.168.1.2)
+     computer only understand binary numbers 1 and 0 
+     for ip 192.168.1.0 (11000000.10101000.00000001.00000000)
+     for subnet 255.225.255.0 (11111111.11111111.11111111.00000000) but how ?
+      for that we have 8 bit octet chart which has 128,64,32,16,8,4,2,1 = 255 (8 bits)
+      for 192.168.1.0 for 192 we want to find addition of which of there will the result in 192
+      wecan take 128+ 64 = 192 
+      here we have to consider 1 if there is added and 0 if not
+      so for 128 = 1, 64 = 1 , 32 = 0, 16 = 0, 8 = 0, 4 = 0, 2 = 0, 1 = 0 => 11000000 next
+      for 168 128+32+8 = 168
+       so 128 = 1, 64 = 0 , 32 = 1, 16 = 0, 8 = 1, 4 = 0, 2 = 0, 1 = 0 => 10101000 next
+      for 1 ,1
+      so 128 = 0, 64 = 0 , 32 = 0, 16 = 0, 8 = 0, 4 = 0, 2 = 0, 1 = 1 => 00000001 next
+      as 0 evering 0 so 128 = 0, 64 = 0 , 32 = 0, 16 = 0, 8 = 0, 4 = 0, 2 = 0, 1 =  => 00000000
+      
+      aslo for 255.255.255.0
+      for 255 = 128+64+32+16+8+4+32+1 => 255 
+      so 128 = 1, 64 = 1 , 32 = 1, 16 = 1, 8 = 1, 4 = 1, 2 = 1, 1 = 1 => 11111111 for all 255 are same so next
+      for 0
+      as 0 evering 0 so 128 = 0, 64 = 0 , 32 = 0, 16 = 0, 8 = 0, 4 = 0, 2 = 0, 1 =  => 00000000
+      
+      hence  for ip 192.168.1.0 (11000000.10101000.00000001.00000000) is the binary number
+      hence for subnet 255.225.255.0 (11111111.11111111.11111111.00000000) isthe binary number
     
-    
-    
-    10.0.0.0/31 -> 10.0.0.0 10.0.0.1  total = 2
-    10.0.0.0/31 -> 10.0.0.0 10.0.0.1  total = 2
+
     
     
