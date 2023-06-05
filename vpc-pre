@@ -82,6 +82,11 @@ eg. one aadar card number can not given for indians
       
       hence  for ip 192.168.1.0 (11000000.10101000.00000001.00000000) is the binary number
       hence for subnet 255.225.255.0 (11111111.11111111.11111111.00000000) isthe binary number
+    To find network adress and host adress by ip and subnet
+    we can check ip binary with subnet binary 
+     192.168.1.0   = (11000000.10101000.00000001.00000000)
+     255.225.255.0 = (11111111.11111111.11111111.00000000)
+     there binary of ip which related subnet has 11111111's continusly is the network adress and other are host
     
 
     
