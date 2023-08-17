@@ -1,17 +1,18 @@
+# every thing is typed manually after hands-on of the project
 ABOUT PROJECT
 -------------
-- This project demonstretes how to create a VPC that you can use for servers in a production environment
-- To improve the resiliency I deploy the servers in two Avalibility Zone ,by using an Auto scaling group and Application load balancer
+- This project demonstrates how to create a VPC that you can use for servers in a production environment
+- To improve the resiliency I deploy the servers in two Avalibility Zone,by using an Auto scaling group and Application load balancer
 - For additional security, I deploy the servers in private subnets
-- The servers receive request through the load balancer
-- The servers can connect to internet by using NAT gateway
+- The servers receive requests through the load balancer
+- The servers can connect to the internet by using NAT gateway
 - To improve resiliency I deploy the NAT gateway in both the AZ
 
 OVERVIEW
 --------
-- The VPC  has the pubilc subnet and private in two Avalibility zone
+- The VPC  has the pubilc subnet and private in two Availability zone
 - Each public subnet has a NAT gateway and a load balancer node
-- The servers run in the private subnets are launched and terninated by an Auto scaling group and receive traffic from load balancer
+- The servers run in the private subnets are launched and terminated by an Auto scaling group and receive traffic from load balancer
 - The servers can connect to the internet by using NAT gateway
 
 SERVICES used
@@ -19,35 +20,35 @@ SERVICES used
 - VPC
 - NAT gateway
 - routing table
-- pubilc and pivate subnet
+- public and pivate subnet
 - target groups
-- appication load balancer
+- application load balancer
 - launch templete
-- auto scaling group
+- auto-scaling group
 - bastion instance
 
 CREATING THE PROJECT
 --------------------
 1)
-- log in aws console -> search VPC
+- log in AWS console -> search VPC
 - create vpc -> vpc and more -> name (prod-vpc)-> cidr(default) -> no. of az (2) -> no. of public subnet (2)-> no. of private subnet (2) ->
 ->NAT gateway (1 per AZ) -> VPC endpoint(none) -> create vpc
-# this may take some time
+# This may take some time
 # vpc and more by default create
-- 4 subnets in 2 az one private and one pubilc each
-- 3 route tables 1 pubilc and 2 private in each az
+- 4 subnets in 2 az one private and one public each
+- 3 route tables 1 public and 2 private in each az
 - 1 internet gateway and 1 vpc s3 endpoint
 
 2) search Auto scaling group
 - create Auto scaling group -> name (prod-as)
-- create launch templete
+- create launch template
 - name(prod-templ)-> description(prod-as-templ) -> ami(ubuntu) -> instance(t2micro) -> key pair (prod.pem) -> 
 -> security group (my-sec)edit inbound ->type (all)#not recommeded -source(anywhere) ->
 -> vpc (prod-vpc) -> edit inbound ->type (all)#not recommeded -source(anywhere) -> create launch templete
 -> click refresh button -> launch templete(prod-templ) -> next ->
 -> network vpc (prod-vpc) -> az and subnet (choose the private subnet) in each az ->next -> next ->
--> desired capacity (2) -> minimum capacity (1) -> maxium capacity (4) -> next -> next -> create Auto scaling group
-# in ec2 2 instance will be running without public ip
+-> desired capacity (2) -> minimum capacity (1) -> maximum capacity (4) -> next -> next -> create Auto scaling group
+# in ec2 2 instances will be running without public ip
 
 3) create a bastion host
 -> search ec2 ->instance -> create instance ->
@@ -59,7 +60,7 @@ CREATING THE PROJECT
 ->$ scp -i <path of .pem in local computer> <path of .pem in local computer> <username>@<ip-address>:<path to be copied in remote> ->press enter -> yes->
 ->$ ssh -i <name of .pem> <username>@<private ip of private instance>
 ->$ sudo yum update -> $ sudo yum install httpd -> $ systemctl start httpd # create a webpage in private subnet 
-# do the same in another private instance and make change like
+# do the same in another private instance and make changes like
 -> $ cd /var/www/html -> $ echo hi > index.html # > is typed as part of command
 
 5) connect private instance with load balancer
@@ -71,7 +72,7 @@ CREATING THE PROJECT
 -> available instances (selete the private instances) -> include as pending -> create target group ->
 -> press refresh button -> target group (aws-prod-tg) -> create load balancer 
 
-# copy the url of load balancer and paste and search for access website from private instance
+# copy the URL of load balancer and paste and search for access website from private instance
 
 
 
