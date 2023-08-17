@@ -1,0 +1,77 @@
+ABOUT PROJECT
+-------------
+- This project demonstretes how to create a VPC that you can use for servers in a production environment
+- To improve the resiliency I deploy the servers in two Avalibility Zone ,by using an Auto scaling group and Application load balancer
+- For additional security, I deploy the servers in private subnets
+- The servers receive request through the load balancer
+- The servers can connect to internet by using NAT gateway
+- To improve resiliency I deploy the NAT gateway in both the AZ
+
+OVERVIEW
+--------
+- The VPC  has the pubilc subnet and private in two Avalibility zone
+- Each public subnet has a NAT gateway and a load balancer node
+- The servers run in the private subnets are launched and terninated by an Auto scaling group and receive traffic from load balancer
+- The servers can connect to the internet by using NAT gateway
+
+SERVICES used
+---------------
+- VPC
+- NAT gateway
+- routing table
+- pubilc and pivate subnet
+- target groups
+- appication load balancer
+- launch templete
+- auto scaling group
+- bastion instance
+
+CREATING THE PROJECT
+--------------------
+1)
+- log in aws console -> search VPC
+- create vpc -> vpc and more -> name (prod-vpc)-> cidr(default) -> no. of az (2) -> no. of public subnet (2)-> no. of private subnet (2) ->
+->NAT gateway (1 per AZ) -> VPC endpoint(none) -> create vpc
+# this may take some time
+# vpc and more by default create
+- 4 subnets in 2 az one private and one pubilc each
+- 3 route tables 1 pubilc and 2 private in each az
+- 1 internet gateway and 1 vpc s3 endpoint
+
+2) search Auto scaling group
+- create Auto scaling group -> name (prod-as)
+- create launch templete
+- name(prod-templ)-> description(prod-as-templ) -> ami(ubuntu) -> instance(t2micro) -> key pair (prod.pem) -> 
+-> security group (my-sec)edit inbound ->type (all)#not recommeded -source(anywhere) ->
+-> vpc (prod-vpc) -> edit inbound ->type (all)#not recommeded -source(anywhere) -> create launch templete
+-> click refresh button -> launch templete(prod-templ) -> next ->
+-> network vpc (prod-vpc) -> az and subnet (choose the private subnet) in each az ->next -> next ->
+-> desired capacity (2) -> minimum capacity (1) -> maxium capacity (4) -> next -> next -> create Auto scaling group
+# in ec2 2 instance will be running without public ip
+
+3) create a bastion host
+-> search ec2 ->instance -> create instance ->
+-> name (bastion-host) ->  ami(ubuntu) -> instance(t2micro) -> key pair (prod.pem) -> security group (my-sec) ->
+-> vpc (prod-vpc) -> subnet (choose pubilc subnet) -> auto assign public adress(enable) -> launch instance
+
+4) connect private subnet
+- select and connect bastion-host
+->$ scp -i <path of .pem in local computer> <path of .pem in local computer> <username>@<ip-address>:<path to be copied in remote> ->press enter -> yes->
+->$ ssh -i <name of .pem> <username>@<private ip of private instance>
+->$ sudo yum update -> $ sudo yum install httpd -> $ systemctl start httpd # create a webpage in private subnet 
+# do the same in another private instance and make change like
+-> $ cd /var/www/html -> $ echo hi > index.html # > is typed as part of command
+
+5) connect private instance with load balancer
+- search load balancer -> create load balancer -> application load balancer -> create
+- name (prod-lb) -> scheme (internet-facing) -> ip (ipv4) ->
+-> vpc (prod-vpc) -> mapping (select public subnets in both az) -> security group (my-sec) -> 
+-> listener and routing -> create target group ->
+-> choose a type ( instance) -> ... -> name (aws-prod-tg) -> ... -> next
+-> available instances (selete the private instances) -> include as pending -> create target group ->
+-> press refresh button -> target group (aws-prod-tg) -> create load balancer 
+
+# copy the url of load balancer and paste and search for access website from private instance
+
+
+
