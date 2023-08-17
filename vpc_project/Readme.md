@@ -1,4 +1,4 @@
-# Project 2: VPC Deployment with Auto Scaling and Load Balancing
+# Project 2: VPC Deployment with Auto Scaling and Load Balancing with Public-Private subnets
 
 ## Overview
 
