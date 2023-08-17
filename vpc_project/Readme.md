@@ -1,3 +1,4 @@
+
 # Project 2: VPC Deployment with Auto Scaling and Load Balancing with Public-Private subnets
 
 ## Overview
@@ -52,7 +53,7 @@ Follow these steps to create the VPC deployment with Auto Scaling and Load Balan
 
 This project is a demonstration of best practices for deploying production-ready server infrastructure using AWS services. It aims to provide a resilient and scalable environment for hosting applications and services.
 
-For more details and the complete source code, visit the [GitHub Repository]([https://github.com/YourUsername/YourRepository](https://github.com/Isaac58222/aws/edit/main/vpc_project)).
+For more details and the complete source code, visit the website: [https://awscloud.jedsio.cloud/](https://awscloud.jedsio.cloud/project.html)
 
 ---
 
